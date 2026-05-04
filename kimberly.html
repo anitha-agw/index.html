@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Good Word — Kimberly Green Warren's Highlight Reel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0,800;1,600&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange:      #E94E1B;
+      --orange-dark: #C8401A;
+      --cream:       #FDF6EF;
+      --navy:        #1C1C1C;
+      --gray:        #5A5A5A;
+      --gray-lt:     #E8E2DC;
+      --white:       #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--gray-lt);
+      margin: 0;
+    }
+
+    /* ── NAV ─────────────────────────────── */
+    .nav {
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      background: var(--white);
+    }
+    .nav__logo { height: 76px; width: auto; }
+
+    /* ── HERO ────────────────────────────── */
+    .hero {
+      background: var(--cream);
+      padding: 64px 48px 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero__eyebrow {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 800;
+      max-width: 700px;
+      margin: 0 auto 20px;
+      line-height: 1.15;
+    }
+
+    .hero__sub {
+      font-size: clamp(15px, 1.8vw, 17px);
+      color: var(--gray);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+
+    .hero__sub strong { color: var(--navy); }
+
+    /* ── PROOF SECTION ───────────────────── */
+    .proof-section {
+      padding: 72px 48px 64px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .proof-section__header {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .proof-section__header h2 {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 700;
+    }
+
+    .proof-section__header p {
+      font-size: 15px;
+      color: var(--gray);
+      margin-top: 8px;
+    }
+
+    /* Single unified 2-column, 3-row grid */
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .proof-card {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--gray-lt);
+    }
+
+    .proof-card__img-wrap {
+      height: 360px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      background: var(--cream);
+    }
+
+    /* Gradient fade */
+    .proof-card__img-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.8));
+      pointer-events: none;
+      transition: opacity 0.35s;
+    }
+
+    .proof-card:hover .proof-card__img-wrap::after,
+    .proof-card.is-panning .proof-card__img-wrap::after {
+      opacity: 0;
+    }
+
+    /* Bouncing pill hint */
+    .proof-card__hint {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Lato', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(28,28,28,0.65);
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--gray-lt);
+      padding: 4px 11px;
+      border-radius: 20px;
+      white-space: nowrap;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .proof-card__hint .hint-arrow {
+      display: inline-block;
+      animation: bounce-hint 1.4s ease-in-out infinite;
+    }
+
+    @keyframes bounce-hint {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(4px); }
+    }
+
+    .proof-card:hover .proof-card__hint,
+    .proof-card.is-panning .proof-card__hint {
+      opacity: 0;
+    }
+
+    .proof-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transform: translateY(0);
+      transition: transform 0.4s ease;
+    }
+
+    .proof-card.is-panning img {
+      transition: transform 3.5s ease-in-out;
+    }
+
+    .proof-card__label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      padding: 12px 14px 6px;
+      border-top: 1px solid var(--gray-lt);
+      background: var(--white);
+    }
+
+    .proof-card__sublabel {
+      font-size: 12px;
+      color: var(--gray);
+      padding: 0 14px 12px;
+      background: var(--white);
+    }
+
+    /* ── BOTTOM CTA SECTION ─────────────── */
+    .bottom-section {
+      background: var(--cream);
+      padding: 72px 48px;
+    }
+
+    .bottom-section__inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .bottom-section__text {
+      max-width: 520px;
+    }
+
+    .bottom-section__eyebrow {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+
+    .bottom-section h2 {
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .bottom-section p {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .bottom-section p:last-of-type { margin-bottom: 0; }
+
+    .bottom-section__photo-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .cta-photo {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      border: 4px solid var(--white);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    }
+
+    .bottom-section__photo-caption {
+      font-size: 13px;
+      color: var(--gray);
+      text-align: center;
+      margin-top: 2px;
+      line-height: 1.5;
+    }
+
+    .bottom-section__photo-caption strong {
+      font-weight: 700;
+      color: var(--navy);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .bottom-section__photo-caption a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+
+    .bottom-section__photo-caption a:hover {
+      text-decoration: underline;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 36px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn--primary {
+      background: var(--orange);
+      color: var(--white);
+    }
+    .btn--primary:hover {
+      background: var(--orange-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ── FOOTER ──────────────────────────── */
+    footer {
+      background: var(--navy);
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    footer p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    footer a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ──────────────────────── */
+    @media (max-width: 700px) {
+      .bottom-section { padding: 48px 20px; }
+      .bottom-section__inner { grid-template-columns: 1fr; gap: 36px; text-align: center; }
+      .bottom-section__text { max-width: 100%; }
+      .bottom-section__photo-col { flex-direction: row; justify-content: center; gap: 16px; align-items: center; }
+      .proof-section { padding: 48px 20px; }
+      .proof-grid { grid-template-columns: 1fr; gap: 16px; }
+      footer { flex-direction: column; text-align: center; }
+      .btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── PROOF SECTION ─────────────────── -->
+  <div class="proof-section">
+    <div class="proof-section__header">
+      <h2>A Peek at Kimberly's Assets</h2>
+      <p>Real deliverables from real client experiences — this is what you'll get too.</p>
+    </div>
+    <div class="proof-grid">
+
+      <!-- Row 1: Testimonial Library + Branded Graphics -->
+      <div class="proof-card">
+        <div class="proof-card__img-wrap">
+          <img src="kgw-testimonial-package-full.png" alt="Testimonial Library" />
+          <div class="proof-card__hint"><span class="hint-arrow">↓</span> scroll to preview</div>
+        </div>
+        <div class="proof-card__label">Testimonial Library</div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card__img-wrap" style="height:auto; min-height:200px;">
+          <img src="kgw-tgraphic-smart.png" alt="Branded Testimonial Graphic – SMART Health Education" />
+        </div>
+        <div class="proof-card__label">Branded Testimonial Graphics</div>
+      </div>
+
+      <!-- Row 2: BCT graphic + BLKHLTH case study -->
+      <div class="proof-card">
+        <div class="proof-card__img-wrap" style="height:auto; min-height:200px;">
+          <img src="kgw-tgraphic-bct.png" alt="Branded Testimonial Graphic – BCT Partners" />
+        </div>
+        <div class="proof-card__label">Branded Testimonial Graphics</div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card__img-wrap">
+          <img src="kgw-casestudy-blkhlth-full.png" alt="BLKHLTH Case Study" />
+          <div class="proof-card__hint"><span class="hint-arrow">↓</span> scroll to preview</div>
+        </div>
+        <div class="proof-card__label">Written Case Studies</div>
+      </div>
+
+      <!-- Row 3: CTFK short + CTFK full -->
+      <div class="proof-card">
+        <div class="proof-card__img-wrap">
+          <img src="kgw-casestudy-ctfk-full.png" alt="CTFK Case Study – Short" />
+          <div class="proof-card__hint"><span class="hint-arrow">↓</span> scroll to preview</div>
+        </div>
+        <div class="proof-card__label">Written Case Studies</div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card__img-wrap">
+          <img src="kgw-casestudy-ctfk-full-full.png" alt="CTFK Case Study – Full" />
+          <div class="proof-card__hint"><span class="hint-arrow">↓</span> scroll to preview</div>
+        </div>
+        <div class="proof-card__label">Written Case Studies</div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ── BOTTOM CTA ────────────────────── -->
+  <div class="bottom-section">
+    <div class="bottom-section__inner">
+
+      <div class="bottom-section__text">
+        <p class="bottom-section__eyebrow">About A Good Word</p>
+        <h2>Want what Kimberly got?</h2>
+        <p>A Good Word is a done-for-you content service for independent consultants. We interview your past clients, extract the stories that showcase your work, and deliver a ready-to-use library of testimonials and case studies.</p>
+        <p>You focus on your clients. We capture the proof.</p>
+        <a href="https://calendar.app.google/to1as63JsiiqNszg9" target="_blank" class="btn btn--primary" style="margin-top: 28px;">Book a Free 30-Minute Call</a>
+      </div>
+
+      <div class="bottom-section__photo-col">
+        <img src="headshot-anitha.jpg" alt="Anitha" class="cta-photo" />
+        <p class="bottom-section__photo-caption"><strong>Anitha Pai</strong> | <a href="mailto:anitha@agoodword.co">anitha@agoodword.co</a></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── FOOTER ─────────────────────────── -->
+  <footer>
+    <a href="https://www.agoodword.co" target="_blank">www.agoodword.co</a>
+    <p>&copy; 2025 A Good Word. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function getPanAmount(card) {
+      const wrap = card.querySelector('.proof-card__img-wrap');
+      const img  = card.querySelector('img');
+      return Math.max(0, img.offsetHeight - wrap.offsetHeight);
+    }
+
+    function panDown(card) {
+      const amt = getPanAmount(card);
+      if (amt > 0) {
+        card._panAmount = amt;
+        card.classList.add('is-panning');
+        card.querySelector('img').style.transform = `translateY(-${amt}px)`;
+      }
+    }
+
+    function panUp(card) {
+      card.classList.remove('is-panning');
+      card.querySelector('img').style.transform = 'translateY(0)';
+    }
+
+    document.querySelectorAll('.proof-card').forEach(card => {
+      card.addEventListener('mouseenter', () => panDown(card));
+      card.addEventListener('mouseleave', () => panUp(card));
+    });
+
+    // Auto-pan on scroll into view (fires once)
+    const proofSection = document.querySelector('.proof-section');
+    if (proofSection && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          observer.disconnect();
+          const cards = [...document.querySelectorAll('.proof-card')];
+          cards.forEach((card, i) => {
+            setTimeout(() => {
+              panDown(card);
+              setTimeout(() => panUp(card), 4200);
+            }, i * 600);
+          });
+        });
+      }, { threshold: 0.3 });
+      observer.observe(proofSection);
+    }
+  </script>
+
+</body>
+</html>
